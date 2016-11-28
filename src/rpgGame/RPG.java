@@ -25,7 +25,7 @@ class Skill{
 			x.hp = x.hp-(1);
 		}
 		else{
-			System.out.printf("You deal %d damage.%n", atk-x.def);
+			System.out.printf("You deal %.0f damage.%n%n", atk-x.def);
 			x.hp = x.hp-(atk-x.def);
 		}
 	}
@@ -212,7 +212,7 @@ class Battle{
 					}
 					Scanner sc = new Scanner(System.in);
 					int move = sc.nextInt();
-					a.ski.get(move).To_Enemy(a.ski.get(move).value, b);
+					a.ski.get(move-1).To_Enemy(a.ski.get(move).value, b);
 					
 					break;
 				case 1:
@@ -243,11 +243,14 @@ class Battle{
 			if(a_move>=100){
 				System.out.println("Your turn");
 				System.out.println("1.Attack    2.Skill    3.Item    4.Escape");
+				int a_menu=0;
 				Scanner menu_scan = new Scanner(System.in);
-				int a_menu = menu_scan.nextInt();
+				if(menu_scan.hasNextInt()==true){
+					a_menu = menu_scan.nextInt();
+				}
 				battle_menu(a_menu,a,b);
 				a_move = 0;
-				menu_scan.close();
+				
 				
 			}
 			if(b_move>=100){
@@ -267,7 +270,7 @@ class Battle{
 				a_alive = false;
 			}
 			else if(b.hp<=0){
-				System.out.println("You Win");
+				System.out.println("You Win" + '\n');
 				a.lv_up(b.earned_exp);
 				b.hp=0;
 				b_alive=false;
@@ -302,13 +305,13 @@ public class RPG{
 		Scanner in = new Scanner(System.in);
 		int choose = in.nextInt();
 		makechara you = new makechara(choose);
-		in.close();
+		//in.close();
 
 		//Test Battle
 		System.out.println("Game start");
 		System.out.println("First Encounter"+'\n');
 		
-		for(int battle_count=0;battle_count<5;battle_count++){
+		for(int battle_count=0;battle_count<2;battle_count++){
 			Goblin mon = new Goblin();
 			Battle testbattle = new Battle(you.pro,mon);
 		}
